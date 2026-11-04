@@ -1,0 +1,61 @@
+@model EventType
+@{
+    ViewData["Title"] = Model.Name;
+    var others = EventData.Items.Where(e => e.Slug != Model.Slug).Take(3).ToList();
+}
+
+<section class="detail-hero" style="--c: @Model.Color;">
+    <div class="wrap detail-grid">
+        <div>
+            <p class="crumb"><a asp-action="Index">All events</a></p>
+            <h1>@Model.Name</h1>
+            <p class="lead">@Model.Tagline</p>
+            <p class="price-line">From <strong>@Model.FromPrice.Money()</strong> <span>@Model.Guests</span></p>
+            <div class="hero-cta">
+                <a class="btn btn-pink" asp-controller="Enquiry" asp-action="Create" asp-route-id="@Model.Slug">Get a free quote</a>
+                <a class="btn btn-ghost" asp-controller="Services" asp-action="Index">See our services</a>
+            </div>
+        </div>
+        <div class="detail-art">
+            <img src="~/images/events/@Model.Image" alt="@Model.Name illustration" width="600" height="450" />
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="wrap two-col">
+        <div>
+            <h2>About @Model.Name.ToLower()</h2>
+            <p>@Model.Description</p>
+            <h3>Popular themes</h3>
+            <div class="chip-row left">
+                @foreach (var t in Model.Themes)
+                {
+                    <span class="chip" style="--c: @Model.Color;">@t</span>
+                }
+            </div>
+        </div>
+        <aside class="include-card" style="--c: @Model.Color;">
+            <h3>What's included</h3>
+            <ul class="ticks">
+                @foreach (var i in Model.Includes)
+                {
+                    <li>@i</li>
+                }
+            </ul>
+            <a class="btn btn-plum wide" asp-controller="Enquiry" asp-action="Create" asp-route-id="@Model.Slug">Start planning</a>
+        </aside>
+    </div>
+</section>
+
+<section class="section section-lilac">
+    <div class="wrap">
+        <div class="section-head"><h2>More to celebrate</h2></div>
+        <div class="event-grid three">
+            @foreach (var e in others)
+            {
+                <partial name="_EventCard" model="e" />
+            }
+        </div>
+    </div>
+</section>

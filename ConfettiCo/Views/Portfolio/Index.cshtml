@@ -1,0 +1,39 @@
+@{
+    ViewData["Title"] = "Our work";
+}
+
+<section class="page-head">
+    <div class="wrap">
+        <h1>Our work</h1>
+        <p class="lead">A small gallery of celebrations we've planned, styled and run from start to finish.</p>
+    </div>
+</section>
+
+<section class="section tight">
+    <div class="wrap">
+        <div class="portfolio-grid">
+            @foreach (var p in PortfolioData.Items)
+            {
+                <article class="work">
+                    <img src="~/images/portfolio/@p.Image" alt="@p.Title" width="600" height="450" loading="lazy" />
+                    <div class="work-body">
+                        <p class="work-meta">@p.EventName, @p.Guests guests</p>
+                        <h3>@p.Title</h3>
+                        <p>@p.Story</p>
+                        <p class="venue">@p.Venue</p>
+                    </div>
+                </article>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="cta-band">
+    <div class="wrap cta-inner">
+        <div>
+            <h2>Your event could be next</h2>
+            <p>Share your idea and we'll show you how we'd bring it to life.</p>
+        </div>
+        <a class="btn btn-white" asp-controller="Enquiry" asp-action="Create">Plan my event</a>
+    </div>
+</section>

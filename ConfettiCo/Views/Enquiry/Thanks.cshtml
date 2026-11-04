@@ -1,0 +1,13 @@
+@{
+    ViewData["Title"] = "Enquiry received";
+}
+
+<div id="confettiBurst" data-confetti aria-hidden="true"></div>
+
+<section class="page-head">
+    <div class="wrap narrow">
+        <h1>Yay, thank you @TempData["Name"]!</h1>
+        <p class="lead">We've got your enquiry for a @TempData["Type"] on @TempData["Date"]. One of our planners will be in touch within two working days.</p>
+        <p><a class="btn btn-pink" asp-controller="Home" asp-action="Index">Back to the homepage</a> <a class="btn btn-ghost" asp-controller="Portfolio" asp-action="Index">Browse our work</a></p>
+    </div>
+</section>

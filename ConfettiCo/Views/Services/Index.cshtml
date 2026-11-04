@@ -1,0 +1,43 @@
+@{
+    ViewData["Title"] = "What we do";
+}
+
+<section class="page-head">
+    <div class="wrap">
+        <h1>What we do</h1>
+        <p class="lead">Hire us for the whole celebration or just the parts you need. Every service can be booked on its own.</p>
+    </div>
+</section>
+
+<section class="section tight">
+    <div class="wrap">
+        <div class="service-list">
+            @foreach (var s in ServiceData.Items)
+            {
+                <article class="service-row" style="--c: @s.Color;">
+                    <img src="~/images/services/@s.Icon" alt="" width="110" height="110" loading="lazy" />
+                    <div>
+                        <h2>@s.Name</h2>
+                        <p>@s.Summary</p>
+                        <ul class="ticks">
+                            @foreach (var d in s.Details)
+                            {
+                                <li>@d</li>
+                            }
+                        </ul>
+                    </div>
+                </article>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="cta-band">
+    <div class="wrap cta-inner">
+        <div>
+            <h2>Not sure what you need?</h2>
+            <p>Tell us about your event and we'll recommend the right mix of services.</p>
+        </div>
+        <a class="btn btn-white" asp-controller="Enquiry" asp-action="Create">Plan my event</a>
+    </div>
+</section>

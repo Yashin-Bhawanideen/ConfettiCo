@@ -1,0 +1,90 @@
+@model Enquiry
+@{
+    ViewData["Title"] = "Plan my event";
+}
+
+<section class="page-head">
+    <div class="wrap">
+        <h1>Plan my event</h1>
+        <p class="lead">Tell us the basics and we'll reply within two working days with ideas and a free quote.</p>
+    </div>
+</section>
+
+<section class="wrap form-wrap">
+    <form asp-action="Create" method="post" class="form-card" novalidate>
+        <div asp-validation-summary="ModelOnly" class="alert"></div>
+
+        <div class="row">
+            <div class="field">
+                <label asp-for="FullName"></label>
+                <input asp-for="FullName" autocomplete="name" />
+                <span asp-validation-for="FullName" class="err"></span>
+            </div>
+            <div class="field">
+                <label asp-for="Phone"></label>
+                <input asp-for="Phone" type="tel" autocomplete="tel" />
+                <span asp-validation-for="Phone" class="err"></span>
+            </div>
+        </div>
+
+        <div class="field">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" type="email" autocomplete="email" />
+            <span asp-validation-for="Email" class="err"></span>
+        </div>
+
+        <div class="row">
+            <div class="field">
+                <label asp-for="EventTypeSlug"></label>
+                <select asp-for="EventTypeSlug">
+                    @foreach (var e in EventData.Items)
+                    {
+                        <option value="@e.Slug" selected="@(e.Slug == Model.EventTypeSlug)">@e.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="EventTypeSlug" class="err"></span>
+            </div>
+            <div class="field">
+                <label for="EventDate">Event date</label>
+                <input id="EventDate" name="EventDate" type="date" value="@Model.EventDate.ToString("yyyy-MM-dd")" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="EventDate" class="err"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="field">
+                <label asp-for="Guests"></label>
+                <input asp-for="Guests" type="number" min="1" max="2000" />
+                <span asp-validation-for="Guests" class="err"></span>
+            </div>
+            <div class="field">
+                <label asp-for="BudgetRange"></label>
+                <select asp-for="BudgetRange">
+                    @foreach (var b in Enquiry.Budgets)
+                    {
+                        <option value="@b" selected="@(b == Model.BudgetRange)">@b</option>
+                    }
+                </select>
+                <span asp-validation-for="BudgetRange" class="err"></span>
+            </div>
+        </div>
+
+        <div class="field">
+            <label asp-for="Message"></label>
+            <textarea asp-for="Message" rows="5" placeholder="Themes, venues, must-haves, anything that would make it perfect"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-pink wide">Send my enquiry</button>
+    </form>
+
+    <aside class="aside-card">
+        <h3>What happens next</h3>
+        <ol class="next">
+            <li>We read your enquiry and call or email within two working days.</li>
+            <li>We chat about your ideas and send a tailored quote.</li>
+            <li>You approve it, and the planning begins.</li>
+        </ol>
+        <p class="fine">No deposits or commitments until you approve your quote.</p>
+        <p>012 555 0123<br />party@@confettico.example</p>
+    </aside>
+</section>

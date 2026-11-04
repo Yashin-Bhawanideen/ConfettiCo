@@ -1,0 +1,131 @@
+@{
+    ViewData["Title"] = "Parties people talk about for years";
+}
+
+<section class="hero">
+    <div class="wrap hero-grid">
+        <div class="hero-copy">
+            <p class="sticker">Event planners in Pretoria</p>
+            <h1>Parties people talk about for years.</h1>
+            <p class="lead">Weddings, birthdays, launches and everything worth celebrating. Tell us your idea and we'll handle the planning, the decor, the food and the fun.</p>
+            <div class="hero-cta">
+                <a class="btn btn-pink" asp-controller="Enquiry" asp-action="Create">Plan my event</a>
+                <a class="btn btn-ghost" asp-controller="Events" asp-action="Index">See what we celebrate</a>
+            </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+            <img src="~/images/hero.svg" alt="" width="700" height="700" />
+        </div>
+    </div>
+</section>
+
+<section class="chip-strip" aria-label="Events we plan">
+    <div class="wrap chip-row">
+        @foreach (var e in EventData.Items)
+        {
+            <a class="chip" style="--c: @e.Color;" asp-controller="Events" asp-action="Details" asp-route-id="@e.Slug">@e.Name</a>
+        }
+    </div>
+</section>
+
+<section class="section">
+    <div class="wrap">
+        <div class="section-head">
+            <h2>Everything under one confetti-covered roof</h2>
+            <p>One team looks after the whole celebration, so you don't have to chase ten different suppliers.</p>
+        </div>
+        <div class="service-grid">
+            @foreach (var s in ServiceData.Items)
+            {
+                <article class="service" style="--c: @s.Color;">
+                    <img src="~/images/services/@s.Icon" alt="" width="84" height="84" loading="lazy" />
+                    <h3>@s.Name</h3>
+                    <p>@s.Summary</p>
+                </article>
+            }
+        </div>
+        <p class="center-row"><a class="btn btn-plum" asp-controller="Services" asp-action="Index">All our services</a></p>
+    </div>
+</section>
+
+<div class="wave wave-plum" aria-hidden="true"></div>
+<section class="section band-plum">
+    <div class="wrap">
+        <div class="section-head">
+            <h2>Whatever you're celebrating</h2>
+            <p>Nine kinds of celebration, each with its own packages, themes and ideas.</p>
+        </div>
+        <div class="event-grid">
+            @foreach (var e in EventData.Items)
+            {
+                <partial name="_EventCard" model="e" />
+            }
+        </div>
+    </div>
+</section>
+<div class="wave wave-plum flip" aria-hidden="true"></div>
+
+<section class="section">
+    <div class="wrap">
+        <div class="section-head">
+            <h2>How we make it happen</h2>
+            <p>Four simple steps from "we should have a party" to dancing.</p>
+        </div>
+        <ol class="steps">
+            <li style="--c: #ff3d8b;"><h3>1. Chat</h3><p>A free 30-minute call or coffee to hear your ideas, guest list and budget.</p></li>
+            <li style="--c: #ffb800;"><h3>2. Design</h3><p>We create a mood board, a menu and a quote with no surprises.</p></li>
+            <li style="--c: #19b5a5;"><h3>3. Plan</h3><p>We book suppliers, manage RSVPs and walk you through every detail.</p></li>
+            <li style="--c: #7a5cff;"><h3>4. Party</h3><p>Our team arrives early, sets up, runs the show and packs down.</p></li>
+        </ol>
+    </div>
+</section>
+
+<section class="section section-lilac">
+    <div class="wrap">
+        <div class="section-head">
+            <h2>Recent celebrations</h2>
+            <p>A few of the parties we've been proud to plan.</p>
+        </div>
+        <div class="portfolio-grid">
+            @foreach (var p in PortfolioData.Items.Take(3))
+            {
+                <article class="work">
+                    <img src="~/images/portfolio/@p.Image" alt="@p.Title" width="600" height="450" loading="lazy" />
+                    <div class="work-body">
+                        <p class="work-meta">@p.EventName, @p.Guests guests</p>
+                        <h3>@p.Title</h3>
+                        <p>@p.Story</p>
+                    </div>
+                </article>
+            }
+        </div>
+        <p class="center-row"><a class="btn btn-plum" asp-controller="Portfolio" asp-action="Index">See more of our work</a></p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="wrap quotes">
+        <figure style="--c: #ff3d8b;">
+            <blockquote>They took a stressful wedding and made it feel effortless. Our guests are still talking about the decor.</blockquote>
+            <figcaption>Lerato and Sipho</figcaption>
+        </figure>
+        <figure style="--c: #19b5a5;">
+            <blockquote>Our year-end function for 400 people ran to the minute. We've booked them again for next year.</blockquote>
+            <figcaption>Nomsa K., HR Manager</figcaption>
+        </figure>
+        <figure style="--c: #ffb800;">
+            <blockquote>Zoe's 21st was pure magic. The glow cocktails were a huge hit and nothing was left for us to organise.</blockquote>
+            <figcaption>Annelie, proud mom</figcaption>
+        </figure>
+    </div>
+</section>
+
+<section class="cta-band">
+    <div class="wrap cta-inner">
+        <div>
+            <h2>Got a date in mind?</h2>
+            <p>Tell us what you're celebrating and we'll send a free, no-pressure quote within two working days.</p>
+        </div>
+        <a class="btn btn-white" asp-controller="Enquiry" asp-action="Create">Plan my event</a>
+    </div>
+</section>

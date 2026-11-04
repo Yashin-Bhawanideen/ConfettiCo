@@ -1,0 +1,23 @@
+@model IReadOnlyList<EventType>
+@{
+    ViewData["Title"] = "Events we plan";
+}
+
+<section class="page-head">
+    <div class="wrap">
+        <h1>Events we plan</h1>
+        <p class="lead">Pick a celebration to see what's included, popular themes and starting prices.</p>
+    </div>
+</section>
+
+<section class="section tight">
+    <div class="wrap">
+        <div class="event-grid">
+            @foreach (var e in Model)
+            {
+                <partial name="_EventCard" model="e" />
+            }
+        </div>
+        <p class="fine center-row">Prices are starting points and depend on guest numbers, venue and extras. Every quote is tailored to you.</p>
+    </div>
+</section>

@@ -1,0 +1,70 @@
+@{
+    var current = ViewContext.RouteData.Values["controller"]?.ToString() ?? "Home";
+    string Active(string c) => string.Equals(current, c, StringComparison.OrdinalIgnoreCase) ? "active" : "";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] | Confetti Co. Events</title>
+    <meta name="description" content="Confetti Co. plans weddings, birthdays, corporate events, baby showers and more. Fun, stylish and stress-free." />
+    <link rel="icon" href="~/images/logo.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="site-header">
+        <div class="wrap header-inner">
+            <a class="brand" asp-controller="Home" asp-action="Index" aria-label="Confetti Co. Events home">
+                <img src="~/images/logo.svg" alt="" width="44" height="44" />
+                <span>Confetti Co.</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mainNav">
+                <span></span><span></span>
+            </button>
+            <nav id="mainNav" class="main-nav" aria-label="Main">
+                <a class="@Active("Services")" asp-controller="Services" asp-action="Index">What we do</a>
+                <a class="@Active("Events")" asp-controller="Events" asp-action="Index">Events</a>
+                <a class="@Active("Portfolio")" asp-controller="Portfolio" asp-action="Index">Our work</a>
+                <a class="btn btn-pink" asp-controller="Enquiry" asp-action="Create">Plan my event</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main">
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap footer-grid">
+            <div>
+                <div class="brand brand-foot"><img src="~/images/logo.svg" alt="" width="44" height="44" /><span>Confetti Co.</span></div>
+                <p>Event planners in Pretoria, serving Gauteng and beyond. Big on fun, bigger on details.</p>
+            </div>
+            <div>
+                <h4>Events we plan</h4>
+                <ul class="plain">
+                    @foreach (var e in EventData.Items.Take(5))
+                    {
+                        <li><a asp-controller="Events" asp-action="Details" asp-route-id="@e.Slug">@e.Name</a></li>
+                    }
+                    <li><a asp-controller="Events" asp-action="Index">And more</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Say hello</h4>
+                <p>12 Festival Lane, Menlo Park<br />Pretoria, 0102<br />012 555 0123<br />party@@confettico.example</p>
+                <p>Office hours: Monday to Friday 08:30 to 17:00. Saturdays by appointment.</p>
+            </div>
+        </div>
+        <div class="wrap foot-base">&copy; @DateTime.Now.Year Confetti Co. Events. A demo event planner website.</div>
+    </footer>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

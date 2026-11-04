@@ -1,0 +1,11 @@
+@model EventType
+<a class="event-card" style="--c: @Model.Color;" asp-controller="Events" asp-action="Details" asp-route-id="@Model.Slug">
+    <div class="event-art">
+        <img src="~/images/events/@Model.Image" alt="@Model.Name illustration" width="600" height="450" loading="lazy" />
+    </div>
+    <div class="event-body">
+        <h3>@Model.Name</h3>
+        <p>@Model.Tagline</p>
+        <p class="from">From <b>@Model.FromPrice.Money()</b></p>
+    </div>
+</a>
